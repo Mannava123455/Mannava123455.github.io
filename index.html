@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Venkatasai Mannava | GNSS receiver and embedded DSP engineer</title>
+<meta name="description" content="Venkatasai Mannava is an M.Tech RA at IIT Hyderabad who builds real-time GPS L1 C/A baseband receivers on fixed-point DSPs.">
+<meta name="theme-color" content="#0a192f">
+<meta property="og:title" content="Venkatasai Mannava">
+<meta property="og:description" content="GNSS receiver and embedded DSP engineer at IIT Hyderabad.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #0a192f;
+    --navy-2: #112240;
+    --navy-3: #1d3358;
+    --slate: #8892b0;
+    --slate-light: #a8b2d1;
+    --ink: #e6ebf8;
+    --accent: #5ce1c6;
+    --accent-dim: rgba(92, 225, 198, 0.12);
+    --display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --page: 1040px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  body {
+    margin: 0;
+    background: var(--navy);
+    color: var(--slate);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+  ::selection { background: var(--navy-3); color: var(--ink); }
+
+  h1, h2, h3 { font-family: var(--display); color: var(--ink); margin: 0; line-height: 1.15; }
+  p { margin: 0 0 1em; }
+
+  .wrap { width: min(var(--page), 100% - 48px); margin-inline: auto; }
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: 16px; top: 12px; background: var(--accent); color: var(--navy); padding: 8px 12px; border-radius: 4px; z-index: 50; }
+
+  /* ---------- Header ---------- */
+  header.top {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(10, 25, 47, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(136, 146, 176, 0.14);
+  }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 64px; }
+  .brand { font-family: var(--display); font-weight: 700; color: var(--ink); font-size: 1.05rem; letter-spacing: 0.01em; }
+  .brand:hover { text-decoration: none; color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 26px; margin: 0; padding: 0; align-items: center; }
+  nav a { color: var(--slate-light); font-size: 0.92rem; }
+  nav a:hover { color: var(--accent); text-decoration: none; }
+  .btn {
+    display: inline-block; font-family: var(--body); font-weight: 500; font-size: 0.95rem;
+    color: var(--accent); border: 1px solid var(--accent); border-radius: 4px;
+    padding: 10px 18px; background: transparent; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: var(--accent-dim); text-decoration: none; }
+  .btn.solid { background: var(--accent); color: var(--navy); }
+  .btn.solid:hover { background: #7aead2; }
+  nav .btn { padding: 7px 14px; font-size: 0.88rem; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 88px 0 72px; }
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+  .hello { color: var(--accent); font-size: 1rem; margin-bottom: 14px; }
+  .hero h1 { font-size: clamp(2.6rem, 6.2vw, 4.4rem); font-weight: 700; letter-spacing: -0.02em; }
+  .hero h2 { font-size: clamp(1.35rem, 3vw, 2rem); font-weight: 500; color: var(--slate-light); margin-top: 14px; letter-spacing: -0.01em; }
+  .hero p.lede { max-width: 30em; margin-top: 24px; }
+  .hero .actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+
+  .scope {
+    background: var(--navy-2);
+    border: 1px solid rgba(136, 146, 176, 0.18);
+    border-radius: 8px;
+    padding: 14px 14px 10px;
+  }
+  .scope canvas { display: block; width: 100%; height: 270px; }
+  .scope figcaption { font-size: 0.82rem; color: var(--slate); padding: 8px 4px 2px; }
+
+  /* ---------- Sections ---------- */
+  section.block { padding: 84px 0; }
+  .section-title { display: flex; align-items: center; gap: 20px; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; margin-bottom: 40px; }
+  .section-title::after { content: ""; flex: 1; max-width: 300px; height: 1px; background: rgba(136, 146, 176, 0.3); }
+
+  /* About */
+  .about { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+  .about p { max-width: 36em; }
+  .about strong { color: var(--ink); font-weight: 500; }
+  .tools { list-style: none; padding: 0; margin: 20px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 12em)); gap: 6px 24px; font-size: 0.95rem; }
+  .tools li { position: relative; padding-left: 18px; }
+  .tools li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 2px; background: var(--accent); }
+  .portrait { position: relative; max-width: 300px; justify-self: center; }
+  .portrait img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 6px; filter: saturate(0.9); }
+  .portrait::after {
+    content: ""; position: absolute; inset: 0; transform: translate(14px, 14px);
+    border: 2px solid var(--accent); border-radius: 6px; z-index: -1; transition: transform 0.2s;
+  }
+  .portrait:hover::after { transform: translate(8px, 8px); }
+
+  /* Experience */
+  .jobs { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 32px; }
+  [role="tablist"] { display: flex; flex-direction: column; border-left: 2px solid var(--navy-3); }
+  [role="tab"] {
+    background: none; border: 0; text-align: left; cursor: pointer;
+    font: inherit; font-size: 0.95rem; color: var(--slate);
+    padding: 12px 18px; margin-left: -2px; border-left: 2px solid transparent;
+    transition: background 0.15s, color 0.15s;
+  }
+  [role="tab"]:hover { background: var(--navy-2); color: var(--accent); }
+  [role="tab"][aria-selected="true"] { color: var(--accent); border-left-color: var(--accent); background: var(--navy-2); }
+  [role="tabpanel"] h3 { font-size: 1.3rem; font-weight: 500; }
+  [role="tabpanel"] h3 span { color: var(--accent); }
+  .when { font-size: 0.92rem; margin: 6px 0 22px; }
+  .points { list-style: none; padding: 0; margin: 0; max-width: 40em; }
+  .points li { position: relative; padding-left: 26px; margin-bottom: 12px; }
+  .points li::before { content: ""; position: absolute; left: 2px; top: 0.7em; width: 9px; height: 9px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: translateY(-50%) rotate(-45deg) scale(0.8); }
+  .points b { color: var(--ink); font-weight: 500; }
+
+  /* Projects */
+  .featured { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 0; background: var(--navy-2); border-radius: 8px; overflow: hidden; border: 1px solid rgba(136, 146, 176, 0.16); }
+  .featured .copy { padding: 36px 36px 32px; }
+  .featured h3 { font-size: 1.6rem; font-weight: 600; margin-bottom: 14px; }
+  .featured .tags { margin-top: 18px; }
+  .featured dl { margin: 0; padding: 36px; background: var(--navy-3); display: grid; gap: 22px; align-content: center; }
+  .featured dt { font-family: var(--display); font-size: 1.9rem; font-weight: 600; color: var(--accent); line-height: 1.1; }
+  .featured dd { margin: 2px 0 0; font-size: 0.9rem; color: var(--slate-light); }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+  .tags li { font-size: 0.82rem; color: var(--accent); background: var(--accent-dim); padding: 3px 10px; border-radius: 99px; }
+
+  .sub-title { font-size: 1.2rem; font-weight: 500; margin: 56px 0 8px; }
+  .labs { list-style: none; padding: 0; margin: 0; }
+  .labs li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 32px; padding: 18px 0; border-top: 1px solid rgba(136, 146, 176, 0.2); align-items: baseline; }
+  .labs li:last-child { border-bottom: 1px solid rgba(136, 146, 176, 0.2); }
+  .labs h4 { margin: 0; font-family: var(--display); font-weight: 500; font-size: 1.05rem; color: var(--ink); }
+  .labs p { margin: 4px 0 0; font-size: 0.95rem; max-width: 38em; }
+  .labs .tags { justify-content: flex-end; }
+
+  /* Skills + Education */
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; }
+  .skills { margin: 0; display: grid; gap: 18px; }
+  .skills dt { color: var(--ink); font-weight: 500; }
+  .skills dd { margin: 2px 0 0; font-size: 0.95rem; }
+  .edu { list-style: none; padding: 0; margin: 0; }
+  .edu li { padding: 0 0 22px 22px; position: relative; border-left: 2px solid var(--navy-3); }
+  .edu li:last-child { padding-bottom: 0; }
+  .edu li::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--navy); border: 2px solid var(--accent); }
+  .edu h4 { margin: 0; color: var(--ink); font-family: var(--display); font-weight: 500; font-size: 1.05rem; }
+  .edu p { margin: 2px 0 0; font-size: 0.93rem; }
+  .edu .score { color: var(--accent); }
+
+  .courses { margin-top: 56px; }
+  .courses dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px 36px; margin: 0; }
+  .courses dt { color: var(--ink); font-weight: 500; }
+  .courses dd { margin: 2px 0 0; font-size: 0.95rem; }
+
+  /* Contact */
+  .contact { text-align: center; padding: 96px 0 80px; }
+  .contact h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+  .contact p { max-width: 30em; margin: 18px auto 32px; }
+
+  footer { text-align: center; padding: 28px 0 40px; font-size: 0.85rem; }
+  .socials { display: flex; gap: 22px; justify-content: center; margin-bottom: 14px; }
+  .socials a { color: var(--slate-light); display: inline-flex; }
+  .socials a:hover { color: var(--accent); }
+  .socials svg { width: 22px; height: 22px; fill: currentColor; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .hero { padding-top: 56px; }
+    .hero .wrap, .about, .featured, .two { grid-template-columns: minmax(0, 1fr); }
+    .hero .wrap { gap: 40px; }
+    .about { gap: 40px; }
+    .jobs { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    [role="tablist"] { flex-direction: row; border-left: 0; border-bottom: 2px solid var(--navy-3); overflow-x: auto; }
+    [role="tab"] { margin: 0 0 -2px; border-left: 0; border-bottom: 2px solid transparent; white-space: nowrap; }
+    [role="tab"][aria-selected="true"] { border-bottom-color: var(--accent); }
+    .labs li { grid-template-columns: minmax(0, 1fr); }
+    .labs .tags { justify-content: flex-start; }
+    nav li:not(:last-child) { display: none; }
+    .featured .copy, .featured dl { padding: 26px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+
+<body>
+<a class="skip" href="#about">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Venkatasai Mannava, back to top">Venkatasai Mannava</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a class="btn" href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="name">
+    <div class="wrap">
+      <div>
+        <p class="hello">Hi, my name is</p>
+        <h1 id="name">Venkatasai Mannava.</h1>
+        <h2>I build GPS receivers that run in real time on a DSP.</h2>
+        <p class="lede">I'm an M.Tech research assistant at IIT Hyderabad's 5G Testbed R&amp;D Lab. I take a GPS L1 C/A baseband receiver from floating-point C to fixed-point code on a CEVA DSP, for an NB-IoT chipset.</p>
+        <div class="actions">
+          <a class="btn solid" href="#projects">See the receiver</a>
+          <a class="btn" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <figure class="scope" style="margin:0">
+        <canvas id="scope" role="img" aria-label="Animated plot of a GPS acquisition search. Correlation noise is swept across all code phases until one value crosses the detection threshold."></canvas>
+        <figcaption>Acquisition: search every code phase, then pick the one that crosses the threshold.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="block" id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <h2 class="section-title" id="about-h">About me</h2>
+      <div class="about">
+        <div>
+          <p>I'm a communications and signal processing engineer focused on real-time GNSS receivers. I'm pursuing an M.Tech in Communications &amp; Signal Processing at <strong>IIT Hyderabad</strong>, where I work as a research assistant in the 5G Testbed R&amp;D Lab.</p>
+          <p>My work started with a complete GPS L1 C/A baseband receiver in floating-point C: acquisition, tracking, bit and frame synchronisation, and position estimation. I validated it on live signals captured with a BladeRF SDR. I now port and optimise that receiver for a <strong>resource-constrained CEVA DSP</strong> using fixed-point arithmetic.</p>
+          <p>I like the part of the job where the maths meets the hardware: working out where precision is lost, what each stage costs in cycles and memory, and what the noise floor of every block really is. Technologies I work with daily:</p>
+          <ul class="tools">
+            <li>C and Python</li>
+            <li>MATLAB</li>
+            <li>Verilog</li>
+            <li>Fixed-point DSP</li>
+            <li>SDR platforms</li>
+            <li>GDB and Make</li>
+          </ul>
+        </div>
+        <div class="portrait">
+          <img src="images/profile.png" alt="Portrait of Venkatasai Mannava" width="300" height="300">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="block" id="experience" aria-labelledby="exp-h">
+    <div class="wrap">
+      <h2 class="section-title" id="exp-h">Where I've worked</h2>
+      <div class="jobs">
+        <div role="tablist" aria-label="Roles" aria-orientation="vertical">
+          <button role="tab" id="tab-ra" aria-controls="panel-ra" aria-selected="true">M.Tech RA</button>
+          <button role="tab" id="tab-pa" aria-controls="panel-pa" aria-selected="false" tabindex="-1">Project Associate</button>
+        </div>
+
+        <div>
+          <div role="tabpanel" id="panel-ra" aria-labelledby="tab-ra" tabindex="0">
+            <h3>M.Tech Research Assistant <span>at 5G Testbed R&amp;D Lab, IIT Hyderabad</span></h3>
+            <p class="when">August 2024 to present</p>
+            <ul class="points">
+              <li>Ported and optimised the <b>GPS L1 C/A baseband receiver</b> to a <b>CEVA DSP</b> in fixed-point C, on a platform with a 153 MHz clock and 512 KB of on-chip memory for code and data.</li>
+              <li>Brought tracking down to <b>160 µs per satellite</b>, which leaves room for real-time multi-channel processing within the compute budget.</li>
+              <li>Ran extensive <b>Monte Carlo tests</b> across geographic locations and signal conditions. Positioning matches the floating-point implementation.</li>
+              <li>Analysed the whole receiver chain mathematically and characterised the <b>noise performance and sensitivity</b> of each processing stage.</li>
+              <li>Reached about <b>-140 dBm acquisition</b> and <b>-150 dBm tracking</b> sensitivity, with a median positioning accuracy near 7 m.</li>
+              <li>Resolved fixed-point precision, complexity, memory and real-time problems that appeared during DSP integration.</li>
+            </ul>
+          </div>
+
+          <div role="tabpanel" id="panel-pa" aria-labelledby="tab-pa" tabindex="0" hidden>
+            <h3>Project Associate <span>at 5G Testbed R&amp;D Lab, IIT Hyderabad</span></h3>
+            <p class="when">February 2024 to July 2024</p>
+            <ul class="points">
+              <li>Learned the <b>GPS L1 C/A signal structure</b> and the receiver algorithms behind it.</li>
+              <li>Designed and implemented a <b>complete baseband receiver in floating-point C</b>: acquisition, tracking, bit synchronisation, frame synchronisation and PVT estimation.</li>
+              <li>Validated it with <b>live GPS signals</b> captured on a BladeRF SDR, and evaluated performance with Monte Carlo simulations.</li>
+              <li>Achieved a median positioning accuracy of about <b>7 m</b> while tracking six satellites.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="block" id="projects" aria-labelledby="proj-h">
+    <div class="wrap">
+      <h2 class="section-title" id="proj-h">Things I've built</h2>
+
+      <article class="featured">
+        <div class="copy">
+          <h3>GPS L1 C/A receiver on a DSP</h3>
+          <p>My M.Tech thesis. A real-time GPS L1 C/A baseband receiver in fixed-point C on a CEVA DSP, built to be integrated into an NB-IoT chipset for navigation and NTN (non-terrestrial network) applications.</p>
+          <p>The aim is a receiver small and sensitive enough for commercial GNSS-enabled products, not just a lab demo.</p>
+          <ul class="tags" aria-label="Technologies">
+            <li>C</li><li>Fixed-point</li><li>CEVA DSP</li><li>GPS L1 C/A</li><li>Monte Carlo</li><li>Linker scripts</li>
+          </ul>
+        </div>
+        <dl>
+          <div><dt>-140 dBm</dt><dd>acquisition sensitivity</dd></div>
+          <div><dt>-150 dBm</dt><dd>tracking sensitivity</dd></div>
+          <div><dt>7 m</dt><dd>median positioning accuracy</dd></div>
+          <div><dt>160 µs</dt><dd>tracking time per satellite</dd></div>
+        </dl>
+      </article>
+
+      <h3 class="sub-title">Lab assignments</h3>
+      <ul class="labs">
+        <li>
+          <div>
+            <h4>Fixed-point FIR filter</h4>
+            <p>Hardware implementation of an FIR filter in Verilog using fixed-point arithmetic.</p>
+          </div>
+          <ul class="tags"><li>Verilog</li></ul>
+        </li>
+        <li>
+          <div>
+            <h4>Newton–Raphson division</h4>
+            <p>Fixed-point divider built on Newton–Raphson iteration, written in Verilog.</p>
+          </div>
+          <ul class="tags"><li>Verilog</li></ul>
+        </li>
+        <li>
+          <div>
+            <h4>Digital modulation over fading channels</h4>
+            <p>Simulated digital modulation schemes and measured bit error rate over AWGN and Rayleigh fading channels.</p>
+          </div>
+          <ul class="tags"><li>Python</li></ul>
+        </li>
+        <li>
+          <div>
+            <h4>MIMO systems</h4>
+            <p>Simulated MIMO links with different transmit and receive antenna configurations and compared their BER.</p>
+          </div>
+          <ul class="tags"><li>Python</li></ul>
+        </li>
+        <li>
+          <div>
+            <h4>OFDM</h4>
+            <p>Implemented OFDM and evaluated it over AWGN and Rayleigh fading channels.</p>
+          </div>
+          <ul class="tags"><li>Python</li></ul>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Skills + Education -->
+  <section class="block" id="education" aria-labelledby="edu-h">
+    <div class="wrap">
+      <h2 class="section-title" id="edu-h">Skills and education</h2>
+      <div class="two">
+        <dl class="skills">
+          <div><dt>Languages</dt><dd>C, Verilog, Python, MATLAB</dd></div>
+          <div><dt>Embedded DSP</dt><dd>Real-time signal processing in fixed-point arithmetic, tuned for computational efficiency, numerical precision and tight memory.</dd></div>
+          <div><dt>Debugging and memory</dt><dd>Register-level debugging of C on target hardware. Linker scripts for custom memory maps.</dd></div>
+          <div><dt>RF and SDR</dt><dd>Rohde &amp; Schwarz spectrum analysers and signal generators for characterisation and power measurements. SDR platforms for real-time transmit, receive and I/Q processing.</dd></div>
+          <div><dt>Automation</dt><dd>Python and Bash for test automation, data processing and Monte Carlo simulation of baseband blocks.</dd></div>
+          <div><dt>Tools</dt><dd>Linux, GCC, GDB, Make, Git, VS Code, Bash</dd></div>
+        </dl>
+
+        <ol class="edu" aria-label="Education">
+          <li>
+            <h4>M.Tech, Communications &amp; Signal Processing (RA)</h4>
+            <p>IIT Hyderabad, expected 2027 · <span class="score">CGPA 8.55</span></p>
+          </li>
+          <li>
+            <h4>B.Tech, Electronics and Communication Engineering</h4>
+            <p>Vignan's Foundation for Science, Technology and Research, 2023 · <span class="score">CGPA 9.61</span></p>
+          </li>
+          <li>
+            <h4>Intermediate (XII), Board of Intermediate Education, Andhra Pradesh</h4>
+            <p>Vignan Cooperative Junior College, 2019 · <span class="score">10.00</span></p>
+          </li>
+          <li>
+            <h4>Secondary (X), CBSE</h4>
+            <p>Sri Somanatha Green Field Public School, 2017 · <span class="score">10.00</span></p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="courses">
+        <h3 class="sub-title" style="margin-top:0;margin-bottom:22px">Coursework I use on the receiver</h3>
+        <dl>
+          <div><dt>Random Variables and Stochastic Processes</dt><dd>Statistical modelling, CDF analysis and receiver sensitivity estimation.</dd></div>
+          <div><dt>Principles of Digital Communications</dt><dd>BPSK modulation and demodulation, BER analysis, maximum-likelihood detection.</dd></div>
+          <div><dt>Advanced Digital Signal Processing</dt><dd>Sampling theory, digital filtering, up and down sampling.</dd></div>
+          <div><dt>Wireless Communications</dt><dd>Doppler, carrier phase and code phase estimation using maximum-likelihood techniques.</dd></div>
+          <div><dt>Matrix Theory</dt><dd>Nonlinear equation solving and least-squares estimation for GPS PVT computation.</dd></div>
+        </dl>
+      </div>
+
+      <h3 class="sub-title">Responsibilities</h3>
+      <ul class="points">
+        <li><b>Teaching assistant, FPGA &amp; DSP lab.</b> Guided undergraduates in Python, Verilog and fixed-point arithmetic.</li>
+        <li><b>Student coordinator, CIRH International Conference.</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <h2 id="contact-h">Let's talk about GNSS.</h2>
+      <p>I'm open to roles and collaborations in GNSS, embedded DSP and baseband signal processing. The quickest way to reach me is email.</p>
+      <a class="btn solid" href="mailto:ee24mtech12008@iith.ac.in">Email me</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="socials">
+    <!-- TODO: replace the two href="#" values with your own profile URLs -->
+    <a href="#" aria-label="LinkedIn profile" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+    </a>
+    <a href="#" aria-label="GitHub profile" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+    </a>
+  </div>
+  <div>Venkatasai Mannava · <span id="year"></span></div>
+</footer>
+
+<script>
+  /* Footer year */
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* Tabs: click and arrow-key navigation */
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+    function select(tab, focus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+      if (focus) tab.focus();
+    }
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { select(tab, false); });
+      tab.addEventListener('keydown', function (e) {
+        var next = null;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+        if (e.key === 'Home') next = tabs[0];
+        if (e.key === 'End') next = tabs[tabs.length - 1];
+        if (next) { e.preventDefault(); select(next, true); }
+      });
+    });
+  })();
+
+  /* Hero: acquisition search plot. Sweeps once, then holds the final frame. */
+  (function () {
+    var canvas = document.getElementById('scope');
+    var ctx = canvas.getContext('2d');
+    var N = 220;                 // code-phase bins drawn
+    var PEAK = 143;              // bin where the satellite is found
+    var THRESH = 0.56;           // detection threshold (fraction of height)
+    var DURATION = 4200;         // sweep time in ms
+    var vals = [];
+    var seed = 7;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (var i = 0; i < N; i++) {
+      var v = 0.08 + 0.2 * rnd() * rnd() + 0.08 * rnd();
+      var d = Math.abs(i - PEAK);
+      if (d === 0) v = 0.94;
+      else if (d === 1) v = 0.62;
+      else if (d === 2) v = 0.34;
+      vals.push(Math.min(v, 0.5 + (d < 3 ? 0.5 : 0)));
+    }
+    // keep noise safely under the threshold
+    for (var j = 0; j < N; j++) if (Math.abs(j - PEAK) > 2 && vals[j] > 0.42) vals[j] = 0.42;
+
+    var css = getComputedStyle(document.documentElement);
+    var C = {
+      accent: css.getPropertyValue('--accent').trim(),
+      slate: css.getPropertyValue('--slate').trim(),
+      light: css.getPropertyValue('--slate-light').trim(),
+      bar: '#3b5280'
+    };
+    var w = 0, h = 0, dpr = 1;
+
+    function resize() {
+      dpr = window.devicePixelRatio || 1;
+      var r = canvas.getBoundingClientRect();
+      w = r.width; h = r.height;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function draw(p) {
+      ctx.clearRect(0, 0, w, h);
+      var padL = 34, padR = 8, padT = 10, padB = 28;
+      var pw = w - padL - padR, ph = h - padT - padB;
+      var bw = pw / N;
+      var upto = Math.floor(p * N);
+
+      // axes
+      ctx.strokeStyle = 'rgba(136,146,176,0.35)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(padL, padT); ctx.lineTo(padL, padT + ph); ctx.lineTo(padL + pw, padT + ph);
+      ctx.stroke();
+
+      ctx.font = '12px "IBM Plex Sans", Arial, sans-serif';
+      ctx.fillStyle = C.slate;
+      ctx.textAlign = 'center';
+      ctx.fillText('code phase', padL + pw / 2, h - 7);
+      ctx.save();
+      ctx.translate(11, padT + ph / 2); ctx.rotate(-Math.PI / 2);
+      ctx.fillText('correlation', 0, 0);
+      ctx.restore();
+
+      // threshold line
+      var ty = padT + ph * (1 - THRESH);
+      ctx.setLineDash([5, 5]);
+      ctx.strokeStyle = 'rgba(168,178,209,0.55)';
+      ctx.beginPath(); ctx.moveTo(padL, ty); ctx.lineTo(padL + pw, ty); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = C.light;
+      ctx.textAlign = 'right';
+      ctx.fillText('threshold', padL + pw - 4, ty - 6);
+
+      // bars
+      var found = false;
+      for (var i = 0; i <= upto && i < N; i++) {
+        var bh = vals[i] * ph;
+        var above = vals[i] >= THRESH;
+        if (above) found = true;
+        ctx.fillStyle = above ? C.accent : C.bar;
+        ctx.fillRect(padL + i * bw, padT + ph - bh, Math.max(bw - 0.6, 1), bh);
+      }
+
+      // sweep head
+      if (p < 1) {
+        var x = padL + upto * bw;
+        ctx.strokeStyle = C.accent;
+        ctx.globalAlpha = 0.7;
+        ctx.beginPath(); ctx.moveTo(x, padT); ctx.lineTo(x, padT + ph); ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+
+      // result label
+      if (found) {
+        var px = padL + PEAK * bw;
+        var py = padT + ph * (1 - vals[PEAK]);
+        ctx.fillStyle = C.accent;
+        ctx.textAlign = px > w * 0.6 ? 'right' : 'left';
+        ctx.fillText('satellite found', px + (px > w * 0.6 ? -10 : 10), py + 12);
+      }
+    }
+
+    resize();
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { draw(1); }
+    else {
+      var start = null;
+      (function frame(ts) {
+        if (start === null) start = ts;
+        var p = Math.min((ts - start) / DURATION, 1);
+        draw(p);
+        if (p < 1) requestAnimationFrame(frame);
+        else done = true;
+      })(performance.now());
+    }
+    var done = reduce;
+    window.addEventListener('resize', function () { resize(); draw(done ? 1 : 0.999); });
+  })();
+</script>
+</body>
+</html>
