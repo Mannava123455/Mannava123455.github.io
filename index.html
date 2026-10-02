@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Venkatasai Mannava — Communications and Signal Processing Engineer specializing in GNSS, DSP and embedded systems.">
+  <meta name="theme-color" content="#070b14">
+  <title>Venkatasai Mannava | Communications & Signal Processing Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="noise"></div>
+
+  <header class="site-header">
+    <a class="logo" href="#top" aria-label="Venkatasai Mannava home">
+      <span>VM</span>
+      <b>Venkatasai</b>
+    </a>
+
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#project">Featured Project</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span class="pulse"></span> Communications & Signal Processing Engineer</p>
+        <h1>Turning signals into <span>real-world systems.</span></h1>
+        <p class="hero-text">
+          M.Tech researcher at IIT Hyderabad working across GNSS receiver design,
+          digital signal processing, embedded DSP and real-time implementation.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button primary" href="#project">Explore my work <span>↗</span></a>
+          <a class="button secondary" href="resume.pdf" download>Download résumé <span>↓</span></a>
+        </div>
+
+        <div class="quick-stats">
+          <div><strong>−150 dBm</strong><span>tracking sensitivity</span></div>
+          <div><strong>160 µs</strong><span>per-satellite processing</span></div>
+          <div><strong>~7 m</strong><span>median positioning accuracy</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="orbital">
+          <div class="orbit orbit-1"></div>
+          <div class="orbit orbit-2"></div>
+          <div class="orbit orbit-3"></div>
+          <div class="sat sat-a">GPS</div>
+          <div class="sat sat-b">DSP</div>
+          <div class="sat sat-c">RF</div>
+          <div class="core">
+            <span>GNSS</span>
+            <small>SIGNAL<br>PROCESSING</small>
+          </div>
+        </div>
+        <div class="terminal-card">
+          <div class="terminal-top"><span></span><span></span><span></span><em>receiver.c</em></div>
+          <pre><code><span class="code-key">while</span> (tracking) {
+  acquire();
+  carrier_loop();
+  code_loop();
+  synchronize();
+  solve_pvt();
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section content-section">
+      <div class="section-label">01 / ABOUT</div>
+      <div class="two-column">
+        <div>
+          <h2>Engineer with a <span>systems mindset.</span></h2>
+        </div>
+        <div class="prose">
+          <p>
+            Communications and Signal Processing Engineer with hands-on experience
+            in real-time GNSS receiver development. Currently pursuing an M.Tech
+            at IIT Hyderabad, with practical experience implementing GPS L1 C/A
+            baseband signal-processing algorithms on DSP platforms.
+          </p>
+          <p>
+            My work focuses on development, optimisation and real-time implementation
+            of communication and signal-processing systems, with experience in C,
+            Python, MATLAB and SDR-based signal processing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section content-section">
+      <div class="section-label">02 / EXPERIENCE</div>
+      <div class="section-heading">
+        <h2>Building systems at <span>IIT Hyderabad.</span></h2>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item reveal">
+          <div class="timeline-date">AUG 2024 — PRESENT</div>
+          <div class="timeline-marker"></div>
+          <div class="timeline-body">
+            <p class="role">M.Tech Research Assistant</p>
+            <p class="org">5G Testbed R&D Lab · IIT Hyderabad</p>
+            <ul>
+              <li>Ported and optimised a GPS L1 C/A baseband receiver for a resource-constrained CEVA DSP using fixed-point C.</li>
+              <li>Worked on a 153 MHz platform with 512 KB on-chip code and data memory.</li>
+              <li>Optimised the signal-processing pipeline to achieve 160 µs tracking execution time per satellite.</li>
+              <li>Performed Monte Carlo testing across geographic locations and signal conditions.</li>
+              <li>Characterised receiver noise performance and sensitivity across processing stages.</li>
+              <li>Achieved approximately −140 dBm acquisition sensitivity, −150 dBm tracking sensitivity and ~7 m median positioning accuracy.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-item reveal">
+          <div class="timeline-date">FEB 2024 — JUL 2024</div>
+          <div class="timeline-marker"></div>
+          <div class="timeline-body">
+            <p class="role">Project Associate</p>
+            <p class="org">5G Testbed R&D Lab · IIT Hyderabad</p>
+            <ul>
+              <li>Developed a complete GPS L1 C/A baseband receiver in C using floating-point arithmetic.</li>
+              <li>Implemented acquisition, tracking, bit synchronisation, frame synchronisation and PVT estimation.</li>
+              <li>Validated the receiver using live GPS L1 C/A signals captured with a BladeRF SDR.</li>
+              <li>Evaluated receiver performance through extensive Monte Carlo simulations.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="project" class="section content-section featured">
+      <div class="section-label">03 / FEATURED PROJECT</div>
+      <div class="project-header">
+        <div>
+          <p class="kicker">M.Tech Thesis</p>
+          <h2>GPS L1 C/A<br><span>Receiver on DSP</span></h2>
+        </div>
+        <div class="project-description">
+          <p>
+            A real-time GPS L1 C/A baseband receiver implemented on a CEVA DSP
+            using fixed-point arithmetic for integration into an NB-IoT chipset
+            targeting navigation and NTN applications.
+          </p>
+        </div>
+      </div>
+
+      <div class="pipeline">
+        <div class="pipeline-node"><b>01</b><span>Acquisition</span><small>−140 dBm</small></div>
+        <i></i>
+        <div class="pipeline-node"><b>02</b><span>Carrier & Code Tracking</span><small>FLL · PLL · DLL</small></div>
+        <i></i>
+        <div class="pipeline-node"><b>03</b><span>Synchronization</span><small>Bit · Frame</small></div>
+        <i></i>
+        <div class="pipeline-node"><b>04</b><span>PVT</span><small>~7 m median</small></div>
+      </div>
+
+      <div class="metric-grid">
+        <div class="metric"><strong>153 MHz</strong><span>DSP clock</span></div>
+        <div class="metric"><strong>512 KB</strong><span>on-chip memory</span></div>
+        <div class="metric"><strong>160 µs</strong><span>tracking / satellite</span></div>
+        <div class="metric"><strong>−150 dBm</strong><span>tracking sensitivity</span></div>
+      </div>
+
+      <div class="project-footer">
+        <div class="tag-list">
+          <span>GNSS</span><span>DSP</span><span>Fixed Point</span><span>C</span><span>SDR</span><span>Monte Carlo</span>
+        </div>
+        <p>Development · optimisation · mathematical analysis · hardware integration</p>
+      </div>
+    </section>
+
+    <section id="skills" class="section content-section">
+      <div class="section-label">04 / TECHNICAL SKILLS</div>
+      <div class="skills-layout">
+        <div>
+          <h2>Tools for going from <span>math to hardware.</span></h2>
+        </div>
+        <div class="skill-groups">
+          <div class="skill-group">
+            <h3>Programming</h3>
+            <div class="chips"><span>C</span><span>Python</span><span>MATLAB</span><span>Verilog</span></div>
+          </div>
+          <div class="skill-group">
+            <h3>Embedded DSP</h3>
+            <p>Fixed-point implementation, optimisation, numerical precision, computational efficiency and memory-constrained DSP architectures.</p>
+          </div>
+          <div class="skill-group">
+            <h3>Low-level & Systems</h3>
+            <div class="chips"><span>Linux</span><span>GCC</span><span>GDB</span><span>Make</span><span>Git</span><span>VS Code</span><span>Bash</span></div>
+          </div>
+          <div class="skill-group">
+            <h3>RF & SDR</h3>
+            <p>Rohde & Schwarz spectrum analysers and signal generators; SDR-based real-time transmission, reception and I/Q processing.</p>
+          </div>
+          <div class="skill-group">
+            <h3>Automation & Analysis</h3>
+            <p>Python and Bash scripting for test automation, data processing and Monte Carlo simulation of baseband processing blocks.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section content-section labs">
+      <div class="section-label">05 / OTHER PROJECTS</div>
+      <div class="cards">
+        <article class="project-card reveal">
+          <span class="card-number">01</span>
+          <h3>Fixed-Point FIR Filter</h3>
+          <p>Implemented a fixed-point FIR filter in Verilog.</p>
+          <span class="card-tech">VERILOG · FPGA · DSP</span>
+        </article>
+        <article class="project-card reveal">
+          <span class="card-number">02</span>
+          <h3>Newton–Raphson Division</h3>
+          <p>Implemented Newton–Raphson-based division in Verilog using fixed-point arithmetic.</p>
+          <span class="card-tech">VERILOG · FIXED POINT</span>
+        </article>
+        <article class="project-card reveal">
+          <span class="card-number">03</span>
+          <h3>Digital Communications</h3>
+          <p>Simulated modulation schemes and analysed BER over AWGN and Rayleigh fading channels using Python.</p>
+          <span class="card-tech">PYTHON · BER · AWGN</span>
+        </article>
+        <article class="project-card reveal">
+          <span class="card-number">04</span>
+          <h3>MIMO & OFDM</h3>
+          <p>Simulated MIMO systems and OFDM over AWGN and Rayleigh fading channels and analysed BER performance.</p>
+          <span class="card-tech">PYTHON · MIMO · OFDM</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="education" class="section content-section">
+      <div class="section-label">06 / EDUCATION</div>
+      <div class="education-grid">
+        <article class="education-card">
+          <span>2024 — 2027</span>
+          <h3>M.Tech · Communications & Signal Processing</h3>
+          <p>IIT Hyderabad</p>
+          <strong>CGPA 8.55</strong>
+        </article>
+        <article class="education-card">
+          <span>2019 — 2023</span>
+          <h3>B.Tech · Electronics & Communication Engineering</h3>
+          <p>Vignan's Foundation for Science, Technology and Research University</p>
+          <strong>CGPA 9.61</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="section content-section responsibility">
+      <div class="section-label">07 / LEADERSHIP</div>
+      <div class="leadership">
+        <div><span>TEACHING</span><h3>TA · FPGA & DSP Lab</h3><p>Guided undergraduate students in Python, Verilog and fixed-point arithmetic.</p></div>
+        <div><span>CONFERENCE</span><h3>Student Coordinator · CIRH International Conference</h3></div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+      <div class="contact-card">
+        <p class="eyebrow">LET'S CONNECT</p>
+        <h2>Have a signal-processing<br><span>problem to solve?</span></h2>
+        <p>I'm open to conversations around GNSS, DSP, embedded systems and communications engineering.</p>
+        <a class="button primary" href="mailto:ee24mtech12008@iith.ac.in">Send me an email ↗</a>
+        <div class="contact-links">
+          <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="resume.pdf" download>Résumé</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Venkatasai Mannava</span>
+    <span>Built for the web · Engineered for signals</span>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
